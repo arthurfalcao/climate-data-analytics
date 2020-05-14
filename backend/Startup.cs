@@ -14,9 +14,7 @@ using Microsoft.Extensions.Logging;
 using INAMETApi.Models;
 using Microsoft.Extensions.Options;
 using UserServiceApi.Services;
-//using WeatherServiceApi.Services;
-
-//using INAMETDatabaseSettings.Models;
+using WeatherServiceApi.Services;
 
 
 
@@ -42,7 +40,7 @@ namespace INAMET
            
             //adicionar antes de services.AddControllers();
 	        services.AddSingleton<UserService>();
-            //services.AddSingleton<WeatherService>();
+            services.AddSingleton<WeatherService>();
             services.AddControllers();
         }
 

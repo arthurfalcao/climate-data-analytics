@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WeatherControl.Controllers
 {
-    [Route("api/[controller]/Weather")]
+    [Route("api/[controller]")]
     [ApiController]
     public class WeatherController : Controller
     {
@@ -15,19 +15,33 @@ namespace WeatherControl.Controllers
         {
             _WeatherService = WeatherService;
         }
-
-        [HttpGet("{Id:length(24)}", Name = "GetWeather")]
+        [HttpGet]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
 
-        [HttpGet]
-        public ActionResult<Weather> Get(string email)
+        [HttpGet("{id}", Name = "GetID")]
+        public ActionResult<Weather> Get(string Id)
         {
-            var Weather = _WeatherService.Get(email);
+            var Weather = _WeatherService.Get(Id);
 
             if (Weather == null)
                 return NotFound();
 
             return Weather;
+        }
+
+         [HttpPost("{number}", Name = "GetCityNumber")]
+        public ActionResult<Weather> CreateJson(string number)
+        { 
+            
+            
+            var Weather = new Weather();
+            string url="https://worldweather.wmo.int/en/json/";
+            url+=number;
+            url+="_en.json";
+            _WeatherService.getjson(url ,Weather);
+            _WeatherService.Create(Weather);
+
+            return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
         }
 
         [HttpPost]

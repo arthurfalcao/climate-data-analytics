@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UserControl.Controllers
 {
-    [Route("api/[controller]/User")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
