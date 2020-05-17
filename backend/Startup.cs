@@ -1,24 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-using INAMETApi.Models;
+using ClimateDataAnalyticsApi.Models;
+using ClimateDataAnalyticsApi.Services;
 using Microsoft.Extensions.Options;
-using UserServiceApi.Services;
-using WeatherServiceApi.Services;
 
-
-
-namespace INAMET
+namespace ClimateDataAnalytics
 {
     public class Startup
     {
@@ -33,13 +23,15 @@ namespace INAMET
         public void ConfigureServices(IServiceCollection services)
         {
             // requires using Microsoft.Extensions.Options
-    	   
-            services.Configure<INAMETDatabaseSettings>(Configuration.GetSection(nameof(INAMETDatabaseSettings)));
-        	services.AddSingleton<IDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<INAMETDatabaseSettings>>().Value);
+            services.Configure<ClimateDataAnalyticsDatabaseSettings>(
+                Configuration.GetSection(nameof(ClimateDataAnalyticsDatabaseSettings))
+            );
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                  sp.GetRequiredService<IOptions<ClimateDataAnalyticsDatabaseSettings>>().Value
+            );
 
-           
-            //adicionar antes de services.AddControllers();
-	        services.AddSingleton<UserService>();
+            // adicionar antes de services.AddControllers();
+            services.AddSingleton<UserService>();
             services.AddSingleton<WeatherService>();
             services.AddControllers();
         }
