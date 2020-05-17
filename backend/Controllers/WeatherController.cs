@@ -1,9 +1,9 @@
-using INAMETApi.Models;
-using WeatherServiceApi.Services;
+using ClimateDataAnalyticsApi.Models;
+using ClimateDataAnalyticsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace WeatherControl.Controllers
+namespace ClimateDataAnalyticsApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,6 +15,7 @@ namespace WeatherControl.Controllers
         {
             _WeatherService = WeatherService;
         }
+
         [HttpGet]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
 
@@ -29,11 +30,9 @@ namespace WeatherControl.Controllers
             return Weather;
         }
 
-         [HttpPost("{number}", Name = "GetCityNumber")]
+        [HttpPost("{number}", Name = "GetCityNumber")]
         public ActionResult<Weather> CreateJson(string number)
-        { 
-            
-            
+        {
             var Weather = new Weather();
             string url="https://worldweather.wmo.int/en/json/";
             url+=number;

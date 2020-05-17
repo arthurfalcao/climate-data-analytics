@@ -1,9 +1,9 @@
-using INAMETApi.Models;
-using UserServiceApi.Services;
+using ClimateDataAnalyticsApi.Models;
+using ClimateDataAnalyticsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace UserControl.Controllers
+namespace ClimateDataAnalyticsApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -64,5 +64,4 @@ namespace UserControl.Controllers
             return NoContent();
         }
     }
-
 }

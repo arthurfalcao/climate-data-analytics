@@ -2,22 +2,12 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml.Serialization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ClimateDataAnalyticsApi.Models;
 
-
-using INAMETApi.Models;
-
-namespace WeatherServiceApi.Services
+namespace ClimateDataAnalyticsApi.Services
 {
     public class WeatherService
     {
@@ -30,14 +20,12 @@ namespace WeatherServiceApi.Services
             var Weather_database = Weather_client.GetDatabase(Weathersettings.DatabaseName);
 
             _Weather = Weather_database.GetCollection<Weather>(Weathersettings.WeatherCollectionName);
-
-
         }
 
         public Weather getjson(string address, Weather weather)
         {
             WebClient client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
+            client.Encoding = Encoding.UTF8;
             client.Headers.Add("Content-Type", "application/json");
             dynamic data = JObject.Parse(client.DownloadString(address));
 
@@ -45,20 +33,16 @@ namespace WeatherServiceApi.Services
 
             weather.City = (data.city.cityName);
             weather.Country = (data.city.member.memName);
-            weather.issueDate = Convert.ToDateTime(data.city.forecast.issueDate);
-            weather.forecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[0].forecastDate);
+            weather.IssueDate = Convert.ToDateTime(data.city.forecast.issueDate);
+            weather.ForecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[0].forecastDate);
 
             weather.weather = "11";
-            weather.minTemp = "1332";
-            weather.maxTemp = "13";
-            weather.weatherIcon = "2332d";
-
+            weather.MinTemp = "1332";
+            weather.MaxTemp = "13";
+            weather.WeatherIcon = "2332d";
 
             return weather;
         }
-
-
-
 
         public List<Weather> Get() => _Weather.Find(Weather => true).ToList();
 
