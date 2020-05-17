@@ -1,0 +1,14 @@
+﻿### DotnetCore ###
+# .NET Core build folders
+/bin
+/obj
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
