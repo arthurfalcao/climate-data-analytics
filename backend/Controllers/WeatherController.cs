@@ -1,9 +1,9 @@
-using INAMETApi.Models;
-using WeatherServiceApi.Services;
+using ClimateDataAnalyticsApi.Models;
+using ClimateDataAnalyticsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace WeatherControl.Controllers
+namespace ClimateDataAnalyticsApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,6 +15,39 @@ namespace WeatherControl.Controllers
         {
             _WeatherService = WeatherService;
         }
+
+
+        // [HttpPost("{number}", Name = "GetCityNumber")]
+        // public ActionResult<Weather> CreateJson(string number)
+        // {
+        //     var Weather = new Weather();
+
+        //     _WeatherService.getjson(Weather,number);
+
+        //     return Weather;
+        // }
+
+
+        [HttpPost("{IdForGets}", Name = "GetIdForGets")]
+        public ActionResult<Weather> GetByday(string IdForGets)
+        {
+
+            var Weather = _WeatherService.Get_ByCity(IdForGets);
+
+            if (Weather == null)
+            {
+              
+                Weather = new Weather();
+                string number = _WeatherService.CityToNumber(IdForGets);
+                _WeatherService.getjson(Weather, number);
+            }
+
+            return Weather;
+        }
+
+
+
+
         [HttpGet]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
 
@@ -27,21 +60,6 @@ namespace WeatherControl.Controllers
                 return NotFound();
 
             return Weather;
-        }
-
-         [HttpPost("{number}", Name = "GetCityNumber")]
-        public ActionResult<Weather> CreateJson(string number)
-        { 
-            
-            
-            var Weather = new Weather();
-            string url="https://worldweather.wmo.int/en/json/";
-            url+=number;
-            url+="_en.json";
-            _WeatherService.getjson(url ,Weather);
-            _WeatherService.Create(Weather);
-
-            return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
         }
 
         [HttpPost]
@@ -78,4 +96,8 @@ namespace WeatherControl.Controllers
             return NoContent();
         }
     }
+
+
+
+
 }

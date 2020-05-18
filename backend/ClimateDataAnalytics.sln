@@ -1,0 +1,22 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimateDataAnalytics", "ClimateDataAnalytics.csproj", "{F20A7922-96D6-4E43-88E7-79EF621298EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA6FF7EB-4E77-4C8C-AD5E-5B289840772B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F20A7922-96D6-4E43-88E7-79EF621298EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20A7922-96D6-4E43-88E7-79EF621298EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20A7922-96D6-4E43-88E7-79EF621298EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20A7922-96D6-4E43-88E7-79EF621298EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

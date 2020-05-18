@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\pribe\\Downloads\\INAMET\\INAMET.csproj",
+  "FilePath": "c:\\Users\\pribe\\OneDrive\\Documentos\\climate-data-analytics\\backend\\ClimateDataAnalytics.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -20518,7 +20518,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "INAMET",
+  "RootNamespace": "ClimateDataAnalytics",
   "Documents": [],
   "SerializationFormat": "0.2"
 }
