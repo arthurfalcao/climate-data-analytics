@@ -7,6 +7,7 @@ import Dashboard from 'pages/Dashboard';
 import Profile from 'pages/Profile';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
+import Home from 'pages/Home';
 
 function Routes() {
   return (
@@ -15,6 +16,10 @@ function Routes() {
         <Admin>
           <Dashboard />
         </Admin>
+      </Route>
+
+      <Route path="/weather">
+        <Home />
       </Route>
 
       <Route path="/profile">
