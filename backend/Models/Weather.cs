@@ -22,7 +22,10 @@ namespace ClimateDataAnalyticsApi.Models
         public string MinTemp { get; set; }
         public string MaxTemp { get; set; }
         public string WeatherIcon { get; set; }
+<<<<<<< HEAD
 
         public string IdForGets {get;set;}
+=======
+>>>>>>> cd3ee575bce2326ed0665539fbf779716250f38d
     }
 }

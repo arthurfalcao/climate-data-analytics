@@ -16,6 +16,7 @@ namespace ClimateDataAnalyticsApi.Controllers
             _WeatherService = WeatherService;
         }
 
+<<<<<<< HEAD:backend/Controllers/WeatherController.cs
 
         // [HttpPost("{number}", Name = "GetCityNumber")]
         // public ActionResult<Weather> CreateJson(string number)
@@ -48,6 +49,8 @@ namespace ClimateDataAnalyticsApi.Controllers
 
 
 
+=======
+>>>>>>> cd3ee575bce2326ed0665539fbf779716250f38d:backend/Controllers/INAMETApiWeatherr.cs
         [HttpGet]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
 
@@ -62,6 +65,22 @@ namespace ClimateDataAnalyticsApi.Controllers
             return Weather;
         }
 
+<<<<<<< HEAD:backend/Controllers/WeatherController.cs
+=======
+        [HttpPost("{number}", Name = "GetCityNumber")]
+        public ActionResult<Weather> CreateJson(string number)
+        {
+            var Weather = new Weather();
+            string url="https://worldweather.wmo.int/en/json/";
+            url+=number;
+            url+="_en.json";
+            _WeatherService.getjson(url ,Weather);
+            _WeatherService.Create(Weather);
+
+            return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
+        }
+
+>>>>>>> cd3ee575bce2326ed0665539fbf779716250f38d:backend/Controllers/INAMETApiWeatherr.cs
         [HttpPost]
         public ActionResult<Weather> Create(Weather Weather)
         {
