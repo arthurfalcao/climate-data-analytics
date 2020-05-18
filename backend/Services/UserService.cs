@@ -1,10 +1,9 @@
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
-using INAMETApi.Models;
-//using INAMETDatabaseSettings.Models;
+using ClimateDataAnalyticsApi.Models;
 
-namespace UserServiceApi.Services
+namespace ClimateDataAnalyticsApi.Services
 {
     public class UserService
     {
@@ -16,7 +15,6 @@ namespace UserServiceApi.Services
             var database = client.GetDatabase(settings.DatabaseName);
 
             _User = database.GetCollection<User>(settings.UserCollectionName);
-
         }
 
         public List<User> Get() => _User.Find(User => true).ToList();

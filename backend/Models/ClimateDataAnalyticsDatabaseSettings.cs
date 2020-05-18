@@ -1,6 +1,6 @@
-namespace INAMETApi.Models
+namespace ClimateDataAnalyticsApi.Models
 {
-	public class INAMETDatabaseSettings : IDatabaseSettings
+    public class ClimateDataAnalyticsDatabaseSettings : IDatabaseSettings
 	{
 		public string ConnectionString { get; set; }
 		public string DatabaseName { get; set; }
