@@ -11,15 +11,6 @@
           "lib/netstandard2.1/DnsClient.dll": {}
         }
       },
-      "GenericParser/1.1.6": {
-        "type": "package",
-        "compile": {
-          "lib/net20/GenericParsing.dll": {}
-        },
-        "runtime": {
-          "lib/net20/GenericParsing.dll": {}
-        }
-      },
       "Microsoft.AspNetCore.JsonPatch/3.1.4": {
         "type": "package",
         "dependencies": {
@@ -1881,19 +1872,6 @@
         "lib/netstandard2.0/DnsClient.xml",
         "lib/netstandard2.1/DnsClient.dll",
         "lib/netstandard2.1/DnsClient.xml"
-      ]
-    },
-    "GenericParser/1.1.6": {
-      "sha512": "PXofnzu5bLBNKoHAJ7JbCjjsjEwZpIi2+KC+wCDtfKkeAHqo1a1WEoIet9nVklk2DHSC9mkCBDkxDxqouh+ZGw==",
-      "type": "package",
-      "path": "genericparser/1.1.6",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "genericparser.1.1.6.nupkg.sha512",
-        "genericparser.nuspec",
-        "lib/net20/GenericParsing.XML",
-        "lib/net20/GenericParsing.dll"
       ]
     },
     "Microsoft.AspNetCore.JsonPatch/3.1.4": {
@@ -6424,7 +6402,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "GenericParser >= 1.1.6",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.4",
       "MongoDB.Driver >= 2.10.4"
     ]
@@ -6464,10 +6441,6 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
-          "GenericParser": {
-            "target": "Package",
-            "version": "[1.1.6, )"
-          },
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",
             "version": "[3.1.4, )"
@@ -6498,17 +6471,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'GenericParser 1.1.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
-      "libraryId": "GenericParser",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }

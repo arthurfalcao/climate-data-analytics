@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "nIlojPgCNMCYg2QBVK3zMkNnJciiigaRfp66mYiuMO8n9FLLLdOXcatdwEJc/4VMW6vwDHfu190JlqPgf2i84g==",
+  "dgSpecHash": "nh1yBbmpDJ8O8RcyhzaQCz1HJOkWSTXy70QrNOHDaryVy1dEadeYOgKh1YHxBBhkSiJSMC8LPoUn1Gx7kSR1AA==",
   "success": true,
   "projectFilePath": "C:\\Users\\pribe\\OneDrive\\Documentos\\climate-data-analytics\\backend\\ClimateDataAnalytics.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pribe\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
-    "C:\\Users\\pribe\\.nuget\\packages\\genericparser\\1.1.6\\genericparser.1.1.6.nupkg.sha512",
     "C:\\Users\\pribe\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.4\\microsoft.aspnetcore.jsonpatch.3.1.4.nupkg.sha512",
     "C:\\Users\\pribe\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.4\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.4.nupkg.sha512",
     "C:\\Users\\pribe\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -114,16 +113,5 @@
     "C:\\Users\\pribe\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pribe\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'GenericParser 1.1.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
-      "libraryId": "GenericParser",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }

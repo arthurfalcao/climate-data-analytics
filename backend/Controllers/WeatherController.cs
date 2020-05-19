@@ -2,6 +2,7 @@ using ClimateDataAnalyticsApi.Models;
 using ClimateDataAnalyticsApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
 
 namespace ClimateDataAnalyticsApi.Controllers
 {
@@ -39,7 +40,10 @@ namespace ClimateDataAnalyticsApi.Controllers
               
                 Weather = new Weather();
                 string number = _WeatherService.CityToNumber(IdForGets);
-                _WeatherService.getjson(Weather, number);
+                string[] words = IdForGets.Split('-');
+                int day = Int32.Parse(words[3]) - Int32.Parse(words[2]);
+                _WeatherService.getjson(Weather, number,day);
+                if (Weather.WeatherIcon=="error"){return StatusCode(418);}
             }
 
             return Weather;

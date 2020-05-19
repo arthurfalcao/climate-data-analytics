@@ -6,7 +6,7 @@ using System.Data;
 using System;
 using Newtonsoft.Json.Linq;
 using ClimateDataAnalyticsApi.Models;
-using GenericParsing;
+using Microsoft.VisualBasic.FileIO;
 
 
 namespace ClimateDataAnalyticsApi.Services
@@ -24,7 +24,7 @@ namespace ClimateDataAnalyticsApi.Services
             _Weather = Weather_database.GetCollection<Weather>(Weathersettings.WeatherCollectionName);
         }
 
-        public Weather getjson(Weather weather, string number)
+        public Weather getjson(Weather weather, string number, int day)
         {
 
 
@@ -34,53 +34,85 @@ namespace ClimateDataAnalyticsApi.Services
             client.Encoding = System.Text.Encoding.UTF8;
             client.Headers.Add("Content-Type", "application/json");
             dynamic data = JObject.Parse(client.DownloadString(address));
-
-            for (int day = 0; day < 5; day++)
+            int flag=0;
+            weather = JsonByDateDay(data, weather, day,flag);
+            if(Int32.Parse(weather.WeatherIcon)<3)Create(weather);
+            else{weather.WeatherIcon="error";return weather;}
+            string IdForGets = weather.Country + "-" + weather.City + "-" + ((weather.IssueDate.DayOfYear) - 1) + "-" + (weather.ForecastDate.DayOfYear);
+            try
             {
-                weather = JsonByDateDay(data, weather, day);
-                Create(weather);
-                weather.IdForGets = weather.Country + "/" + weather.City + "/" + (weather.IssueDate.DayOfYear - 1) + "/" + weather.ForecastDate.DayOfYear;
-                try
-                {
-                    RemoveByDay(weather.IdForGets);
-                }
-                catch (InvalidCastException e)
-                {
-
-                }
-
+                RemoveByDay(IdForGets);
+            }
+            catch (InvalidCastException e)
+            {
 
             }
 
             return weather;
         }
 
-        public Weather JsonByDateDay(dynamic data, Weather weather, int day)
+        public Weather JsonByDateDay(dynamic data, Weather weather, int day,int flag)
         {
 
             weather.Id = null;//"546c776b3e23f5f2ebdd3b03";
-            weather.City = (data.city.cityName);
-            weather.Country = (data.city.member.memName);
-            weather.IssueDate = Convert.ToDateTime(data.city.forecast.issueDate);
-            weather.ForecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[day].forecastDate);
-            weather.weather = (data.city.forecast.forecastDay[day].weather);
-            weather.MinTemp = (data.city.forecast.forecastDay[day].minTemp);
-            weather.MaxTemp = (data.city.forecast.forecastDay[day].maxTemp);
-            weather.WeatherIcon = (data.city.forecast.forecastDay[day].weatherIcon);
-            weather.IdForGets = weather.Country + "-" + weather.City + "-" + weather.IssueDate.DayOfYear + "-" + weather.ForecastDate.DayOfYear;
+            try { weather.City = (data.city.cityName); }
+            catch { weather.City = "N/A";flag++; }
+            try { weather.Country = (data.city.member.memName); }
+            catch { weather.Country = "N/A";flag++; }
+
+            try { weather.IssueDate = Convert.ToDateTime(data.city.forecast.issueDate); }
+            catch { weather.IssueDate = new DateTime(0001, 1, 1, 0, 0, 0);flag++; }
+            try { weather.ForecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[day].forecastDate); }
+            catch { weather.ForecastDate = new DateTime(0001, 1, 1, 0, 0, 0);flag++; }
+            try { weather.weather = (data.city.forecast.forecastDay[day].weather); }
+            catch { weather.weather = "N/A";flag++; }
+
+            try { weather.MinTemp = (data.city.forecast.forecastDay[day].minTemp); }
+            catch { weather.MinTemp = "N/A";flag++; }
+
+            try { weather.MaxTemp = (data.city.forecast.forecastDay[day].maxTemp); }
+            catch { weather.MaxTemp = "N/A";flag++; }
+
+            try { weather.WeatherIcon = (data.city.forecast.forecastDay[day].weatherIcon); }
+            catch { weather.WeatherIcon = (flag++).ToString(); }
+
+            try { weather.IdForGets = weather.Country + "-" + weather.City + "-" + weather.IssueDate.DayOfYear + "-" + weather.ForecastDate.DayOfYear; }
+            catch { weather.IdForGets = "N/A";}
+
+
             return weather;
         }
 
         public string CityToNumber(string number)
         {
+            string[] words = number.Split('-');
+            System.Console.WriteLine($"<{words[1]}>");
 
-            DataSet dsResult;
-            number="11";
-            // Using an XML Config file. 
-            using (GenericParserAdapter parser = new GenericParserAdapter("cities.txt"))
+            var path = @"cities.txt"; // Habeeb, "Dubai Media City, Dubai"
+            using (TextFieldParser csvParser = new TextFieldParser(path))
             {
-                parser.Load("cities.txt");
-                dsResult = parser.GetDataSet();
+                csvParser.CommentTokens = new string[] { "#" };
+                csvParser.SetDelimiters(new string[] { ";" });
+                csvParser.HasFieldsEnclosedInQuotes = true;
+
+                // Skip the row with the column names
+                csvParser.ReadLine();
+
+                while (!csvParser.EndOfData)
+                {
+                    // Read current line fields, pointer moves to the next line.
+                    string[] fields = csvParser.ReadFields();
+                    string Country = fields[0];
+                    string City = fields[1];
+                    String CityId = fields[2];
+                    if (words[1] == fields[1])
+                    {
+                        return fields[2];
+                    }
+                }
+
+
+
             }
             return number;
 
