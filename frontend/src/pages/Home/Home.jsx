@@ -1,89 +1,97 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
+
 import SearchCity from 'components/SearchCity';
 import Result from 'components/Result';
 import NotFound from 'components/NotFound';
 
-import bg from 'assets/2850815.jpg';
+import * as S from './styled';
 
-const Wrapper = styled.div`
-  min-height: 100vh;
-  margin: 0 15px;
-  position: relative;
+const routes = [
+  {
+    title: 'Inicio',
+    url: '/',
+  },
+  {
+    title: 'Dados',
+    url: '/dados',
+  },
+  {
+    title: 'Noticias',
+    url: '/noticias',
+  },
+  {
+    title: 'Projeto',
+    url: '/projeto',
+  },
+];
 
-  &:before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url(${bg});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-`;
+const footerRoutes = [
+  {
+    title: 'Contato',
+    url: '/contato',
+  },
+  {
+    title: 'Ajuda',
+    url: '/ajuda',
+  },
+  {
+    title: 'Links',
+    url: '/links',
+  },
+  {
+    title: 'Avisos',
+    url: '/avisos',
+  },
+  {
+    title: 'Ficha ténica',
+    url: '/ficha-tecnica',
+  },
+];
 
-const Content = styled.div`
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-`;
+function Footer() {
+  return (
+    <S.FooterWrapper>
+      <S.FooterLinks>
+        {footerRoutes.map((route) => (
+          <S.FooterLinkItem key={route.url}>
+            <S.FooterLink to={route.url}>{route.title}</S.FooterLink>
+          </S.FooterLinkItem>
+        ))}
+      </S.FooterLinks>
 
-const AppTitle = styled.h1`
-  display: block;
-  height: 64px;
-  margin: 0;
-  padding: 20px 0;
-  font-size: 20px;
-  text-transform: uppercase;
-  font-weight: 400;
-  color: #ffffff;
-  transition: 0.3s 1.4s;
-  opacity: ${({ showLabel }) => (showLabel ? 1 : 0)};
+      <S.FooterTextWrapper>
+        <S.FooterText>2020 INAMET - Instituto Nacional de Meteorologia e Geofísica</S.FooterText>
+      </S.FooterTextWrapper>
+    </S.FooterWrapper>
+  );
+}
 
-  ${({ secondary }) =>
-    secondary &&
-    `
-    opacity: 1;
-    height: auto;
-    position: relative;
-    padding: 20px 0;
-    font-size: 30px;
-    top: 20%;
-    text-align: center;
-    transition: .5s;
-    @media (min-width: 768px) {
-      font-size: 40px;
-    }
-    @media (min-width: 1024px) {
-      font-size: 50px;
-    }
-    @media (min-width: 1440px) {
-      font-size: 60px;
-    }
-    @media (min-width: 2560px) {
-      font-size: 70px;
-    }
-  `}
+function CustomNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
-  ${({ showResult }) =>
-    showResult &&
-    `
-    opacity: 0;
-    visibility: hidden;
-    top: 10%;
-  `}
-`;
+  const toggle = () => setIsOpen(!isOpen);
 
-const WeatherWrapper = styled.div`
-  max-width: 1500px;
-  margin: 0 auto;
-  height: calc(100vh - 64px);
-  width: 100%;
-  position: relative;
-`;
+  return (
+    <Navbar dark expand="md">
+      <Link to="/" className="navbar-brand">
+        INAMET
+      </Link>
+      <NavbarToggler onClick={toggle} />
+
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="ml-auto" navbar>
+          {routes.map((route) => (
+            <NavItem key={route.url}>
+              <S.NavLink to={route.url}>{route.title}</S.NavLink>
+            </NavItem>
+          ))}
+        </Nav>
+      </Collapse>
+    </Navbar>
+  );
+}
 
 function Home() {
   const [value, setValue] = useState('');
@@ -147,31 +155,30 @@ function Home() {
       })
       .catch((err) => {
         console.log(err);
-
         setWeatherInfo(null);
         setError(true);
       });
   };
 
   return (
-    <Wrapper>
-      <Content>
-        <AppTitle showLabel={(weatherInfo || error) && true}>Climate Data Analytics</AppTitle>
-        <WeatherWrapper>
-          <AppTitle secondary showResult={(weatherInfo || error) && true}>
-            Climate Data Analytics
-          </AppTitle>
-          <SearchCity
-            value={value}
-            showResult={(weatherInfo || error) && true}
-            change={(e) => setValue(e.target.value)}
-            submit={handleSearchCity}
-          />
-          {weatherInfo && <Result weather={weatherInfo} />}
-          {error && <NotFound error={error} />}
-        </WeatherWrapper>
-      </Content>
-    </Wrapper>
+    <S.Wrapper>
+      <CustomNavbar />
+
+      <S.Content>
+        {/* <S.WeatherWrapper> */}
+        <SearchCity
+          value={value}
+          showResult={weatherInfo || error}
+          change={(e) => setValue(e.target.value)}
+          submit={handleSearchCity}
+        />
+        {weatherInfo && <Result weather={weatherInfo} />}
+        {error && <NotFound error={error} />}
+        {/* </S.WeatherWrapper> */}
+      </S.Content>
+
+      <Footer />
+    </S.Wrapper>
   );
 }
 

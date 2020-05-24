@@ -13,13 +13,13 @@ function Routes() {
   return (
     <Switch>
       <Route exact path="/">
-        <Admin>
-          <Dashboard />
-        </Admin>
+        <Home />
       </Route>
 
       <Route path="/weather">
-        <Home />
+        <Admin>
+          <Dashboard />
+        </Admin>
       </Route>
 
       <Route path="/profile">

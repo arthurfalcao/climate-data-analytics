@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { Search } from '@styled-icons/boxicons-regular/Search';
 
 const SearchBar = styled.form`
-  top: ${({ showResult }) => (showResult ? '0%' : '30%')};
   position: relative;
   margin: 0 auto;
   max-width: 500px;
   transition: 0.8s 0.5s;
+  width: 100%;
   @media (min-width: 1440px) {
     max-width: 600px;
   }
@@ -47,18 +47,18 @@ const SearchIcon = styled.span`
   top: 50%;
   left: 22px;
   transform: translate(-50%, -50%);
-  height: 14px;
-  width: 14px;
+  height: 16px;
+  width: 16px;
   font-size: 14px;
   color: #c5c5c5;
   @media (min-width: 768px) {
-    height: 15px;
-    width: 15px;
+    height: 17px;
+    width: 17px;
     font-size: 15px;
   }
   @media (min-width: 1024px) {
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     font-size: 16px;
   }
 `;
@@ -67,9 +67,9 @@ const SearchCity = ({ submit, value, change, showResult }) => {
   return (
     <>
       <SearchBar showResult={showResult} onSubmit={submit}>
-        <SearchInput type="text" value={value} placeholder="Enter city" onChange={change} />
+        <SearchInput type="text" value={value} placeholder="Procurar cidade" onChange={change} />
         <SearchIcon>
-          <Search style={{ width: '100%' }} />
+          <Search />
         </SearchIcon>
       </SearchBar>
     </>
