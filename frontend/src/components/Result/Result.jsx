@@ -110,6 +110,7 @@ const ForecastWrapper = styled.div`
   flex-basis: 100%;
   margin: 20px 0;
   overflow: hidden;
+  width: calc(100vw - 4rem);
 `;
 
 const Forecast = styled.div`
