@@ -34,52 +34,51 @@ namespace ClimateDataAnalyticsApi.Services
             client.Encoding = System.Text.Encoding.UTF8;
             client.Headers.Add("Content-Type", "application/json");
             dynamic data = JObject.Parse(client.DownloadString(address));
-            int flag=0;
-            weather = JsonByDateDay(data, weather, day,flag);
-            if(Int32.Parse(weather.WeatherIcon)<3)Create(weather);
-            else{weather.WeatherIcon="error";return weather;}
+            int flag = 0;
+            weather = JsonByDateDay(data, weather, day, flag);
+
+            if (weather == null) { return weather=null; }
+
+            Create(weather);
             string IdForGets = weather.Country + "-" + weather.City + "-" + ((weather.IssueDate.DayOfYear) - 1) + "-" + (weather.ForecastDate.DayOfYear);
             try
             {
                 RemoveByDay(IdForGets);
             }
-            catch (InvalidCastException e)
-            {
-
-            }
-
+            catch (InvalidCastException e) { Console.WriteLine(e); }
             return weather;
+
         }
 
-        public Weather JsonByDateDay(dynamic data, Weather weather, int day,int flag)
+        public Weather JsonByDateDay(dynamic data, Weather weather, int day, int flag)
         {
 
             weather.Id = null;//"546c776b3e23f5f2ebdd3b03";
             try { weather.City = (data.city.cityName); }
-            catch { weather.City = "N/A";flag++; }
+            catch { weather.City = "N/A"; flag++; }
             try { weather.Country = (data.city.member.memName); }
-            catch { weather.Country = "N/A";flag++; }
+            catch { weather.Country = "N/A"; flag++; }
 
             try { weather.IssueDate = Convert.ToDateTime(data.city.forecast.issueDate); }
-            catch { weather.IssueDate = new DateTime(0001, 1, 1, 0, 0, 0);flag++; }
+            catch { weather.IssueDate = new DateTime(0001, 1, 1, 0, 0, 0); flag++; }
             try { weather.ForecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[day].forecastDate); }
-            catch { weather.ForecastDate = new DateTime(0001, 1, 1, 0, 0, 0);flag++; }
+            catch { weather.ForecastDate = new DateTime(0001, 1, 1, 0, 0, 0); flag++; }
             try { weather.weather = (data.city.forecast.forecastDay[day].weather); }
-            catch { weather.weather = "N/A";flag++; }
+            catch { weather.weather = "N/A"; flag++; }
 
             try { weather.MinTemp = (data.city.forecast.forecastDay[day].minTemp); }
-            catch { weather.MinTemp = "N/A";flag++; }
+            catch { weather.MinTemp = "N/A"; flag++; }
 
             try { weather.MaxTemp = (data.city.forecast.forecastDay[day].maxTemp); }
-            catch { weather.MaxTemp = "N/A";flag++; }
+            catch { weather.MaxTemp = "N/A"; flag++; }
 
             try { weather.WeatherIcon = (data.city.forecast.forecastDay[day].weatherIcon); }
-            catch { weather.WeatherIcon = (flag++).ToString(); }
+            catch { weather.WeatherIcon = "N/A"; }
 
             try { weather.IdForGets = weather.Country + "-" + weather.City + "-" + weather.IssueDate.DayOfYear + "-" + weather.ForecastDate.DayOfYear; }
-            catch { weather.IdForGets = "N/A";}
+            catch { weather.IdForGets = "N/A"; }
 
-
+            if (flag > 2) return weather = null;
             return weather;
         }
 
@@ -88,7 +87,7 @@ namespace ClimateDataAnalyticsApi.Services
             string[] words = number.Split('-');
             System.Console.WriteLine($"<{words[1]}>");
 
-            var path = @"cities.txt"; // Habeeb, "Dubai Media City, Dubai"
+            var path = @"cities.txt";// "Argentina";"Cordoba";"855"
             using (TextFieldParser csvParser = new TextFieldParser(path))
             {
                 csvParser.CommentTokens = new string[] { "#" };
@@ -110,11 +109,31 @@ namespace ClimateDataAnalyticsApi.Services
                         return fields[2];
                     }
                 }
+            }
+            return number;
+        }
 
+
+        public string GetStatsDates(string Country, string City, DateTime StartDate, DateTime FinishDate)
+        {
+            int NumberOfDays = FinishDate.DayOfYear - StartDate.DayOfYear;
+            int Total_MaxTemp = 0;
+            int Total_MinTemp = 0;
+            string End = Country + City + FinishDate.DayOfYear;
+
+            for (int i = StartDate.DayOfYear; i < FinishDate.DayOfYear; i++)
+            {
+                string Start = Country + '-' + City + '-' + i + '-' + i;
+
+                Weather temp = Get_ByCity(Start);
+                Total_MaxTemp += Int32.Parse(temp.MaxTemp);
+                Total_MinTemp += Int32.Parse(temp.MinTemp);
 
 
             }
-            return number;
+            Total_MaxTemp = Total_MaxTemp / NumberOfDays;
+            Total_MinTemp = Total_MinTemp / NumberOfDays;
+            return (Total_MaxTemp + ";" + Total_MinTemp);
 
         }
 
@@ -122,22 +141,9 @@ namespace ClimateDataAnalyticsApi.Services
 
         public Weather Get(string Id) => _Weather.Find<Weather>(Weather => Weather.Id == Id).FirstOrDefault();
 
+        public Weather Get_ByCity(string IdForGets) { return _Weather.Find(x => x.IdForGets == IdForGets).FirstOrDefault(); }
 
-        public Weather Get_ByCity(string IdForGets)
-        {
-            var results = _Weather.Find(x => x.IdForGets == IdForGets).FirstOrDefault();
-            return results;
-            // var filter = Builders<Weather>.Filter.Eq(x => x.IdForGets, IdForGets);
-            // var results = collection.Find(filter).ToList();
-
-        }
-
-        public Weather Create(Weather Weather)
-        {
-            _Weather.InsertOne(Weather);
-
-            return Weather;
-        }
+        public Weather Create(Weather Weather) { _Weather.InsertOne(Weather); return Weather; }
 
         public void Update(string Id, Weather WeatherIn) => _Weather.ReplaceOne(Weather => Weather.Id == Id, WeatherIn);
 

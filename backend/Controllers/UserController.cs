@@ -10,15 +10,18 @@ namespace ClimateDataAnalyticsApi.Controllers
     public class UserController : Controller
     {
         private readonly UserService _userservice;
-        
+
         public UserController(UserService UserService)
         {
             _userservice = UserService;
         }
 
+
+        //Get All
         [HttpGet]
         public ActionResult<List<User>> Get() => _userservice.Get();
 
+        //Get One From Email By Get opperation 
         [HttpGet("{Email}", Name = "GetEmail")]
         public ActionResult<User> Get(string Id)
         {
@@ -29,7 +32,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return User;
         }
-
+        //Create User By Post Opperation
         [HttpPost]
         public ActionResult<User> Create(User User)
         {
@@ -37,7 +40,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return CreatedAtRoute("GetUser", new { Id = User.Id.ToString() }, User);
         }
-
+        //Update User From ID and Obj By Put Opperation
         [HttpPut("{Id:length(24)}")]
         public IActionResult Update(string Id, User UserIn)
         {
@@ -50,6 +53,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return NoContent();
         }
+        //Update User From ID By Del Opperation
 
         [HttpDelete("{Id:length(24)}")]
         public IActionResult Delete(string Id)

@@ -17,19 +17,9 @@ namespace ClimateDataAnalyticsApi.Controllers
             _WeatherService = WeatherService;
         }
 
-
-        // [HttpPost("{number}", Name = "GetCityNumber")]
-        // public ActionResult<Weather> CreateJson(string number)
-        // {
-        //     var Weather = new Weather();
-
-        //     _WeatherService.getjson(Weather,number);
-
-        //     return Weather;
-        // }
-
-
+        //Algoritmo
         [HttpPost("{IdForGets}", Name = "GetIdForGets")]
+        
         public ActionResult<Weather> GetByday(string IdForGets)
         {
 
@@ -37,24 +27,47 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             if (Weather == null)
             {
-              
+
                 Weather = new Weather();
                 string number = _WeatherService.CityToNumber(IdForGets);
                 string[] words = IdForGets.Split('-');
                 int day = Int32.Parse(words[3]) - Int32.Parse(words[2]);
-                _WeatherService.getjson(Weather, number,day);
-                if (Weather.WeatherIcon=="error"){return StatusCode(418);}
+                Weather = _WeatherService.getjson(Weather, number, day);
+                if (Weather == null) { return StatusCode(418); }
             }
 
             return Weather;
         }
 
 
+        [HttpPost] 
+        [Route("api/[controller]/Date")] 
+        public string GetStatsDate(string Country, string City, DateTime StartDate, DateTime FinishDate)
+        {
+
+            String Temp_val = _WeatherService.GetStatsDates(Country, City, StartDate, FinishDate);
+
+            string[] words = Temp_val.Split(';');
+
+            return "Max Temp: "+words[0]+"\n Min Temp"+words[1]+"Bettwen "+StartDate+" And "+FinishDate;
 
 
+
+        }
+
+
+
+
+
+
+
+
+
+        //GetAll
         [HttpGet]
+        [Route("api/[controller]")]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
-
+        //Get One from ID
         [HttpGet("{id}", Name = "GetID")]
         public ActionResult<Weather> Get(string Id)
         {
@@ -65,7 +78,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return Weather;
         }
-
+        //Create Object By Post
         [HttpPost]
         public ActionResult<Weather> Create(Weather Weather)
         {
@@ -73,7 +86,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
         }
-
+        //Update from Id and object By PUT
         [HttpPut("{Id:length(24)}")]
         public IActionResult Update(string Id, Weather WeatherIn)
         {
@@ -86,7 +99,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
             return NoContent();
         }
-
+        //Delete From ID By Delete
         [HttpDelete("{Id:length(24)}")]
         public IActionResult Delete(string Id)
         {
