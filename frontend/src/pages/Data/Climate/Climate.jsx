@@ -4,28 +4,11 @@ import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Card, CardHeader, CardBody, NavItem, NavLink, Nav, Container, Row, Col } from 'reactstrap';
 
+import Sidebar from 'components/Sidebar';
+
 import { chartOptions, parseOptions, chartExample1 } from 'variables/charts';
 
 import * as S from './styled';
-
-const subRoutes = [
-  {
-    title: 'Histórico Simulado',
-    url: '/dados/clima',
-  },
-  {
-    title: 'Média temporal',
-    url: '/dados/download',
-  },
-  {
-    title: 'Média Temperatura',
-    url: '/dados/comparacao',
-  },
-  {
-    title: 'Estatística',
-    url: '/dados/estacoes',
-  },
-];
 
 function Climate() {
   const [activeNav, setActiveNav] = useState(1);
@@ -45,17 +28,7 @@ function Climate() {
 
   return (
     <S.Wrapper>
-      <S.SidebarWrapper>
-        <Nav navbar className="align-items-start">
-          {subRoutes.map((route) => (
-            <NavItem key={route.url}>
-              <S.SibebarNavLink {...route} to={route.url}>
-                {route.title}
-              </S.SibebarNavLink>
-            </NavItem>
-          ))}
-        </Nav>
-      </S.SidebarWrapper>
+      <Sidebar />
 
       <Container fluid>
         <Row>
