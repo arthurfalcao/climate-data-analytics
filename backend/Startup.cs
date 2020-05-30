@@ -1,11 +1,10 @@
+using ClimateDataAnalytics.Models;
+using ClimateDataAnalytics.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using ClimateDataAnalyticsApi.Models;
-using ClimateDataAnalyticsApi.Services;
 using Microsoft.Extensions.Options;
 
 namespace ClimateDataAnalytics
@@ -17,7 +16,7 @@ namespace ClimateDataAnalytics
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -27,7 +26,7 @@ namespace ClimateDataAnalytics
                 Configuration.GetSection(nameof(ClimateDataAnalyticsDatabaseSettings))
             );
             services.AddSingleton<IDatabaseSettings>(sp =>
-                  sp.GetRequiredService<IOptions<ClimateDataAnalyticsDatabaseSettings>>().Value
+                sp.GetRequiredService<IOptions<ClimateDataAnalyticsDatabaseSettings>>().Value
             );
 
             // adicionar antes de services.AddControllers();
@@ -50,10 +49,7 @@ namespace ClimateDataAnalytics
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
