@@ -8,12 +8,14 @@ const Profile = lazy(() => import('pages/Profile'));
 const Login = lazy(() => import('pages/Login'));
 const Register = lazy(() => import('pages/Register'));
 const Home = lazy(() => import('pages/Home'));
+const Data = lazy(() => import('pages/Data'));
 
 function Routes() {
   return (
     <Suspense fallback="Loading...">
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/dados" component={Data} />
 
         <Route path="/weather">
           <Admin>
