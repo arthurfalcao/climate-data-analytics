@@ -18,19 +18,18 @@ namespace ClimateDataAnalyticsApi.Controllers
         }
 
         //Algoritmo
-        [HttpPost("{IdForGets}", Name = "GetIdForGets")]
-        
-        public ActionResult<Weather> GetByday(string IdForGets)
+        [HttpPost, Route("GetByday/{value}")]
+        public ActionResult<Weather> GetByday(string value)
         {
 
-            var Weather = _WeatherService.Get_ByCity(IdForGets);
+            var Weather = _WeatherService.Get_ByCity(value);
 
             if (Weather == null)
             {
 
                 Weather = new Weather();
-                string number = _WeatherService.CityToNumber(IdForGets);
-                string[] words = IdForGets.Split('-');
+                string number = _WeatherService.CityToNumber(value);
+                string[] words = value.Split('-');
                 int day = Int32.Parse(words[3]) - Int32.Parse(words[2]);
                 Weather = _WeatherService.getjson(Weather, number, day);
                 if (Weather == null) { return StatusCode(418); }
@@ -39,20 +38,24 @@ namespace ClimateDataAnalyticsApi.Controllers
             return Weather;
         }
 
+        [HttpPost, Route("GetStatsDate/{Country}/{City}/{StartDate}/{FinishDate}")]
 
-        [HttpPost] 
-        [Route("api/[controller]/Date")] 
-        public string GetStatsDate(string Country, string City, DateTime StartDate, DateTime FinishDate)
+        public string GetStatsDate(string Country, string City, int StartDate, int FinishDate)
         {
 
-            String Temp_val = _WeatherService.GetStatsDates(Country, City, StartDate, FinishDate);
+
+        int year = DateTime.Now.Year; //Or any year you want
+        DateTime FStartDate = new DateTime(year, 1, 1).AddDays(StartDate - 1);
+        DateTime FFinishDate = new DateTime(year, 1, 1).AddDays(FinishDate - 1);
+
+
+
+
+           String Temp_val = _WeatherService.GetStatsDates(Country, City, FStartDate, FFinishDate);
 
             string[] words = Temp_val.Split(';');
 
-            return "Max Temp: "+words[0]+"\n Min Temp"+words[1]+"Bettwen "+StartDate+" And "+FinishDate;
-
-
-
+           return "Max Temp: " + words[0] + "\nMin Temp: " + words[1] + "\nMedia: " + words[2] + "\nBettwen  " + FStartDate.ToString("d.M.yyyy") + "  And  " + FFinishDate.ToString("d.M.yyyy");
         }
 
 
@@ -65,7 +68,6 @@ namespace ClimateDataAnalyticsApi.Controllers
 
         //GetAll
         [HttpGet]
-        [Route("api/[controller]")]
         public ActionResult<List<Weather>> Get() => _WeatherService.Get();
         //Get One from ID
         [HttpGet("{id}", Name = "GetID")]

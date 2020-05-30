@@ -37,7 +37,7 @@ namespace ClimateDataAnalyticsApi.Services
             int flag = 0;
             weather = JsonByDateDay(data, weather, day, flag);
 
-            if (weather == null) { return weather=null; }
+            if (weather == null) { return weather = null; }
 
             Create(weather);
             string IdForGets = weather.Country + "-" + weather.City + "-" + ((weather.IssueDate.DayOfYear) - 1) + "-" + (weather.ForecastDate.DayOfYear);
@@ -117,8 +117,10 @@ namespace ClimateDataAnalyticsApi.Services
         public string GetStatsDates(string Country, string City, DateTime StartDate, DateTime FinishDate)
         {
             int NumberOfDays = FinishDate.DayOfYear - StartDate.DayOfYear;
+            if(NumberOfDays<1) NumberOfDays=1;
             int Total_MaxTemp = 0;
             int Total_MinTemp = 0;
+            int Total_mean = 0;
             string End = Country + City + FinishDate.DayOfYear;
 
             for (int i = StartDate.DayOfYear; i < FinishDate.DayOfYear; i++)
@@ -126,14 +128,17 @@ namespace ClimateDataAnalyticsApi.Services
                 string Start = Country + '-' + City + '-' + i + '-' + i;
 
                 Weather temp = Get_ByCity(Start);
-                Total_MaxTemp += Int32.Parse(temp.MaxTemp);
-                Total_MinTemp += Int32.Parse(temp.MinTemp);
+                Total_MaxTemp +=    Int32.Parse(temp.MaxTemp);
+                Total_MinTemp +=    Int32.Parse(temp.MinTemp);
+                Total_mean    +=  ((Int32.Parse(temp.MaxTemp))+Int32.Parse(temp.MinTemp))/2;
+                
 
 
             }
+            Total_mean = Total_mean / NumberOfDays;
             Total_MaxTemp = Total_MaxTemp / NumberOfDays;
             Total_MinTemp = Total_MinTemp / NumberOfDays;
-            return (Total_MaxTemp + ";" + Total_MinTemp);
+            return (Total_MaxTemp + ";" + Total_MinTemp + ";" + Total_mean);
 
         }
 
