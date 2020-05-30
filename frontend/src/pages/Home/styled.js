@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink as CustomNavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import bg from 'assets/2850815.jpg';
 
 export const Wrapper = styled.div`
@@ -79,26 +79,6 @@ export const AppTitle = styled.h1`
     visibility: hidden;
     top: 10%;
   `}
-`;
-
-export const WeatherWrapper = styled.div`
-  max-width: 1500px;
-  margin: 0 auto;
-  height: calc(100vh - 64px);
-  width: 100%;
-  position: relative;
-`;
-
-export const NavLink = styled(CustomNavLink).attrs({
-  className: 'nav-link',
-  activeClassName: 'selected',
-})`
-  cursor: pointer;
-  font-weight: 600;
-
-  &.selected {
-    background: #b3b3b3;
-  }
 `;
 
 export const FooterWrapper = styled.footer`
