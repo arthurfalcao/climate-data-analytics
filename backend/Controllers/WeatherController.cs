@@ -1,120 +1,105 @@
-using ClimateDataAnalyticsApi.Models;
-using ClimateDataAnalyticsApi.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using ClimateDataAnalytics.Models;
+using ClimateDataAnalytics.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ClimateDataAnalyticsApi.Controllers
+namespace ClimateDataAnalytics.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class WeatherController : Controller
     {
-        private readonly WeatherService _WeatherService;
+        private readonly WeatherService _weatherService;
 
         public WeatherController(WeatherService WeatherService)
         {
-            _WeatherService = WeatherService;
+            _weatherService = WeatherService;
         }
 
         //Algoritmo
         [HttpPost("{IdForGets}", Name = "GetIdForGets")]
-        
         public ActionResult<Weather> GetByday(string IdForGets)
         {
+            var weather = _weatherService.Get_ByCity(IdForGets);
 
-            var Weather = _WeatherService.Get_ByCity(IdForGets);
-
-            if (Weather == null)
+            if (weather == null)
             {
-
-                Weather = new Weather();
-                string number = _WeatherService.CityToNumber(IdForGets);
+                weather = new Weather();
+                string number = WeatherService.CityToNumber(IdForGets);
                 string[] words = IdForGets.Split('-');
                 int day = Int32.Parse(words[3]) - Int32.Parse(words[2]);
-                Weather = _WeatherService.getjson(Weather, number, day);
-                if (Weather == null) { return StatusCode(418); }
+                weather = _weatherService.GetJson(weather, number, day);
+                if (weather == null)
+                {
+                    return StatusCode(418);
+                }
             }
 
-            return Weather;
+            return weather;
         }
 
-
-        [HttpPost] 
-        [Route("api/[controller]/Date")] 
+        [HttpPost("date", Name = "GetStatsDate")]
         public string GetStatsDate(string Country, string City, DateTime StartDate, DateTime FinishDate)
         {
+            String tempVal = _weatherService.GetStatsDates(Country, City, StartDate, FinishDate);
 
-            String Temp_val = _WeatherService.GetStatsDates(Country, City, StartDate, FinishDate);
+            string[] words = tempVal.Split(';');
 
-            string[] words = Temp_val.Split(';');
-
-            return "Max Temp: "+words[0]+"\n Min Temp"+words[1]+"Bettwen "+StartDate+" And "+FinishDate;
-
-
-
+            return "Max Temp: " + words[0] + "\n Min Temp" + words[1] + "Between " + StartDate + " and " +
+                   FinishDate;
         }
-
-
-
-
-
-
-
-
 
         //GetAll
         [HttpGet]
         [Route("api/[controller]")]
-        public ActionResult<List<Weather>> Get() => _WeatherService.Get();
+        public ActionResult<List<Weather>> Get() => _weatherService.Get();
+
         //Get One from ID
         [HttpGet("{id}", Name = "GetID")]
         public ActionResult<Weather> Get(string Id)
         {
-            var Weather = _WeatherService.Get(Id);
-
-            if (Weather == null)
+            var weather = _weatherService.Get(Id);
+            if (weather == null)
                 return NotFound();
 
-            return Weather;
+            return weather;
         }
+
         //Create Object By Post
         [HttpPost]
         public ActionResult<Weather> Create(Weather Weather)
         {
-            _WeatherService.Create(Weather);
+            _weatherService.Create(Weather);
 
-            return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
+            return CreatedAtRoute("GetWeather", new {Id = Weather.Id.ToString()}, Weather);
         }
+
         //Update from Id and object By PUT
         [HttpPut("{Id:length(24)}")]
         public IActionResult Update(string Id, Weather WeatherIn)
         {
-            var Weather = _WeatherService.Get(Id);
+            var weather = _weatherService.Get(Id);
 
-            if (Weather == null)
+            if (weather == null)
                 return NotFound();
 
-            _WeatherService.Update(Id, WeatherIn);
+            _weatherService.Update(Id, WeatherIn);
 
             return NoContent();
         }
+
         //Delete From ID By Delete
         [HttpDelete("{Id:length(24)}")]
         public IActionResult Delete(string Id)
         {
-            var Weather = _WeatherService.Get(Id);
-
-            if (Weather == null)
+            var weather = _weatherService.Get(Id);
+            if (weather == null)
                 return NotFound();
 
-            _WeatherService.Remove(Weather.Id);
+            _weatherService.Remove(weather.Id);
 
             return NoContent();
         }
     }
-
-
-
-
 }
