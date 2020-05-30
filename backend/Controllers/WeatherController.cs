@@ -68,10 +68,12 @@ namespace ClimateDataAnalyticsApi.Controllers
 
         //GetAll
         [HttpGet]
-        public ActionResult<List<Weather>> Get() => _WeatherService.Get();
+        public ActionResult<List<Weather>> Index() => _WeatherService.Get();
+
+
         //Get One from ID
-        [HttpGet("{id}", Name = "GetID")]
-        public ActionResult<Weather> Get(string Id)
+       [HttpGet("{id}")]
+        public ActionResult<Weather> Show(string Id)
         {
             var Weather = _WeatherService.Get(Id);
 
@@ -82,11 +84,10 @@ namespace ClimateDataAnalyticsApi.Controllers
         }
         //Create Object By Post
         [HttpPost]
-        public ActionResult<Weather> Create(Weather Weather)
+        public ActionResult<Weather> Store(Weather Weather)
         {
-            _WeatherService.Create(Weather);
-
-            return CreatedAtRoute("GetWeather", new { Id = Weather.Id.ToString() }, Weather);
+            var weather = _WeatherService.Create(Weather);
+            return weather;
         }
         //Update from Id and object By PUT
         [HttpPut("{Id:length(24)}")]
@@ -103,7 +104,7 @@ namespace ClimateDataAnalyticsApi.Controllers
         }
         //Delete From ID By Delete
         [HttpDelete("{Id:length(24)}")]
-        public IActionResult Delete(string Id)
+        public IActionResult Destroy(string Id)
         {
             var Weather = _WeatherService.Get(Id);
 
