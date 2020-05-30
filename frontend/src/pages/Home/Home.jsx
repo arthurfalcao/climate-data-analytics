@@ -1,31 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
 
 import SearchCity from 'components/SearchCity';
 import Result from 'components/Result';
 import NotFound from 'components/NotFound';
+import Navbar from 'components/Navbar';
 
 import * as S from './styled';
-
-const routes = [
-  {
-    title: 'Inicio',
-    url: '/',
-  },
-  {
-    title: 'Dados',
-    url: '/dados',
-  },
-  {
-    title: 'Noticias',
-    url: '/noticias',
-  },
-  {
-    title: 'Projeto',
-    url: '/projeto',
-  },
-];
 
 const footerRoutes = [
   {
@@ -65,31 +45,6 @@ function Footer() {
         <S.FooterText>2020 INAMET - Instituto Nacional de Meteorologia e Geofísica</S.FooterText>
       </S.FooterTextWrapper>
     </S.FooterWrapper>
-  );
-}
-
-function CustomNavbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
-
-  return (
-    <Navbar dark expand="md">
-      <Link to="/" className="navbar-brand">
-        INAMET
-      </Link>
-      <NavbarToggler onClick={toggle} />
-
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
-          {routes.map((route) => (
-            <NavItem key={route.url}>
-              <S.NavLink to={route.url}>{route.title}</S.NavLink>
-            </NavItem>
-          ))}
-        </Nav>
-      </Collapse>
-    </Navbar>
   );
 }
 
@@ -162,10 +117,9 @@ function Home() {
 
   return (
     <S.Wrapper>
-      <CustomNavbar />
+      <Navbar />
 
       <S.Content>
-        {/* <S.WeatherWrapper> */}
         <SearchCity
           value={value}
           showResult={weatherInfo || error}
@@ -174,7 +128,6 @@ function Home() {
         />
         {weatherInfo && <Result weather={weatherInfo} />}
         {error && <NotFound error={error} />}
-        {/* </S.WeatherWrapper> */}
       </S.Content>
 
       <Footer />
