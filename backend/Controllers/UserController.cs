@@ -9,7 +9,7 @@ namespace ClimateDataAnalyticsApi.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly UserService _userservice;
+        private readonly UserService  _userservice;
 
         public UserController(UserService UserService)
         {
