@@ -37,8 +37,8 @@ function Climate() {
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h6 className="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                    <h2 className="text-white mb-0">Sales value</h2>
+                    <h6 className="text-uppercase text-light ls-1 mb-1">Temperatura média</h6>
+                    {/* <h2 className="text-white mb-0">Temperatura média</h2> */}
                   </div>
                   <div className="col">
                     <Nav className="justify-content-end" pills>
