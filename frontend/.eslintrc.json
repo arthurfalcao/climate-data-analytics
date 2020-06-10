@@ -7,8 +7,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb", 
-        "prettier", 
+        "airbnb",
+        "prettier",
         "prettier/react"
     ],
     "globals": {
@@ -23,9 +23,9 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react", 
-        "prettier", 
-        "react-hooks", 
+        "react",
+        "prettier",
+        "react-hooks",
         "jsx-a11y"
     ],
     "rules": {
@@ -37,10 +37,10 @@
         "react/jsx-props-no-spreading": 0
     },
     "settings": {
-      "import/resolver": {
-        "node": {
-          "paths": ["src"]
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
         }
-      }
     }
 }
