@@ -11,6 +11,7 @@ const Register = lazy(() => import('pages/Register'));
 const Home = lazy(() => import('pages/Home'));
 const Data = lazy(() => import('pages/Data'));
 const News = lazy(() => import('pages/News'));
+const Project = lazy(() => import('pages/Project'));
 
 function Routes() {
   return (
@@ -20,6 +21,7 @@ function Routes() {
         <Route path="/dados" component={Data} />
 
         <Route path="/noticias" component={News} />
+        <Route path="/projeto" component={Project} />
 
         <Route path="/weather">
           <Admin>
