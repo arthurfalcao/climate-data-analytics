@@ -1,5 +1,5 @@
-using ClimateDataAnalyticsApi.Models;
-using ClimateDataAnalyticsApi.Services;
+using ClimateDataAnalytics.Models;
+using ClimateDataAnalytics.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -1,4 +1,4 @@
-namespace ClimateDataAnalyticsApi.Models
+namespace ClimateDataAnalytics.Models
 {
     public class ClimateDataAnalyticsDatabaseSettings : IDatabaseSettings
     {
