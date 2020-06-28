@@ -5,4 +5,8 @@ export const Wrapper = styled.main`
   grid-template: 'sidebar main' / 1fr 4fr;
   grid-gap: 8px;
   position: relative;
+
+  @media (min-width: 992px) {
+    grid-template: 'sidebar main' / 1fr 6fr;
+  }
 `;

@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-areas: 'header' 'main' 'footer';
   grid-template-rows: auto 1fr auto;
-  grid-gap: 16px;
 
   min-height: 100vh;
   position: relative;
