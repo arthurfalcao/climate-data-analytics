@@ -13,7 +13,7 @@ const Data = lazy(() => import('pages/Data'));
 const News = lazy(() => import('pages/News'));
 const Project = lazy(() => import('pages/Project'));
 
-function Routes() {
+const Routes: React.FC = () => {
   return (
     <Suspense fallback="Loading...">
       <Switch>
@@ -49,6 +49,6 @@ function Routes() {
       </Switch>
     </Suspense>
   );
-}
+};
 
 export default Routes;
