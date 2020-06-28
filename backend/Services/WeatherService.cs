@@ -201,7 +201,6 @@ namespace ClimateDataAnalytics.Services
             return tempWeatherList;
         }
 
-
         public List<Weather> Get() => _weather.Find(Weather => true).ToList();
 
         public Weather Get(string Id) => _weather.Find<Weather>(Weather => Weather.Id == Id).FirstOrDefault();
