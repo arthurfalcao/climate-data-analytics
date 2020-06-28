@@ -75,7 +75,6 @@ const Climate: React.FC = () => {
   useEffect(() => {
     const fetchWeather = async () => {
       const { data } = await api.get<Weather[]>('/weather');
-      console.log('data', data);
 
       const counts = data.reduce((acc, item) => {
         const month = moment(item.forecastDate).format('MMM');
