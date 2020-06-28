@@ -7,13 +7,21 @@ const Dashboard = lazy(() => import('pages/Dashboard'));
 const Profile = lazy(() => import('pages/Profile'));
 const Login = lazy(() => import('pages/Login'));
 const Register = lazy(() => import('pages/Register'));
-const Home = lazy(() => import('pages/Home'));
 
-function Routes() {
+const Home = lazy(() => import('pages/Home'));
+const Data = lazy(() => import('pages/Data'));
+const News = lazy(() => import('pages/News'));
+const Project = lazy(() => import('pages/Project'));
+
+const Routes: React.FC = () => {
   return (
     <Suspense fallback="Loading...">
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/dados" component={Data} />
+
+        <Route path="/noticias" component={News} />
+        <Route path="/projeto" component={Project} />
 
         <Route path="/weather">
           <Admin>
@@ -41,6 +49,6 @@ function Routes() {
       </Switch>
     </Suspense>
   );
-}
+};
 
 export default Routes;

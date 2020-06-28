@@ -1,30 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import bg from 'assets/2850815.jpg';
-
-export const Wrapper = styled.div`
-  display: grid;
-  grid-template-areas: 'header' 'main' 'footer';
-  grid-template-rows: auto 1fr auto;
-  grid-gap: 16px;
-
-  min-height: 100vh;
-  /* margin: 0 15px; */
-  position: relative;
-
-  &:before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url(${bg});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-`;
 
 export const Content = styled.div`
   display: flex;
@@ -79,47 +53,4 @@ export const AppTitle = styled.h1`
     visibility: hidden;
     top: 10%;
   `}
-`;
-
-export const FooterWrapper = styled.footer`
-  display: flex;
-  width: 100%;
-  padding: 1rem;
-  z-index: 1100;
-`;
-
-export const FooterTextWrapper = styled.div`
-  flex-grow: 1;
-`;
-
-export const FooterText = styled.p`
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.57;
-  margin: 0;
-  text-align: right;
-`;
-
-export const FooterLinks = styled.ul`
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-export const FooterLinkItem = styled.li`
-  &:not(:last-child) {
-    margin-right: 16px;
-  }
-`;
-
-export const FooterLink = styled(Link)`
-  color: #fff;
-
-  &:hover {
-    color: #b3b3b3;
-  }
 `;

@@ -321,7 +321,7 @@ const chartExample1 = {
           ticks: {
             callback(value) {
               if (!(value % 10)) {
-                return `$${value}k`;
+                return `${value}(ºC)`;
               }
             },
           },
@@ -339,7 +339,7 @@ const chartExample1 = {
             content += label;
           }
 
-          content += `$${yLabel}k`;
+          content += `${yLabel}(ºC)`;
           return content;
         },
       },
@@ -351,7 +351,7 @@ const chartExample1 = {
       datasets: [
         {
           label: 'Performance',
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
+          data: [0, 20, 10, 28, 15, 11, 15, 13, 7],
         },
       ],
     };
@@ -405,7 +405,7 @@ const chartExample2 = {
     labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: 'Sales',
+        label: 'Temperature',
         data: [25, 20, 30, 22, 17, 29],
         maxBarThickness: 10,
       },
