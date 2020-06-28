@@ -98,7 +98,6 @@ const Climate: React.FC = () => {
           },
         };
       }, initialValues as MeanTemperature);
-      console.log('values', values);
       setMeanTemperature(values);
     };
 
@@ -114,6 +113,7 @@ const Climate: React.FC = () => {
           data: Object.values(meanTemperature).map((m) => Math.round(m.average) || 0),
           borderColor: '#96c6ff',
           backgroundColor: '#96c6ff',
+          fill: false,
         },
       ],
     };

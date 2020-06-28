@@ -32,5 +32,5 @@ export const GraphHeader = styled.div`
 
 export const GraphContent = styled.div`
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: 0 1rem 1rem;
 `;
