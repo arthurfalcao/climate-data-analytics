@@ -42,23 +42,23 @@ namespace ClimateDataAnalyticsApi.Controllers
 
         [HttpPost, Route("GetStatsDate/{Country}/{City}/{StartDate}/{FinishDate}")]
 
-        public string GetStatsDate(string Country, string City, int StartDate, int FinishDate)
+        public ActionResult<List<Weather>> GetStatsDate(string Country, string City, int StartDate, int FinishDate)
         {
 
 
-        int year = DateTime.Now.Year; //Or any year you want
-        DateTime FStartDate = new DateTime(year, 1, 1).AddDays(StartDate - 1);
-        DateTime FFinishDate = new DateTime(year, 1, 1).AddDays(FinishDate - 1);
+            int year = DateTime.Now.Year; //Or any year you want
+            DateTime FStartDate = new DateTime(year, 1, 1).AddDays(StartDate - 1);
+            DateTime FFinishDate = new DateTime(year, 1, 1).AddDays(FinishDate - 1);
 
 
 
 
-           String Temp_val = _weatherService.GetStatsDates(Country, City, FStartDate, FFinishDate);
-
-            string[] words = Temp_val.Split(';');
-
-           return "Max Temp: " + words[0] + "\nMin Temp: " + words[1] + "\nMedia: " + words[2] + "\nBettwen  " + FStartDate.ToString("d.M.yyyy") + "  And  " + FFinishDate.ToString("d.M.yyyy");
+            List<Weather> Temp_val = _weatherService.GetStatsDates(Country, City, FStartDate, FFinishDate);
+            return Temp_val ;
+            //string[] words = Temp_val.Split(';');
+            //return "Max Temp: " + words[0] + "\nMin Temp: " + words[1] + "\nMedia: " + words[2] + "\nBettwen  " + FStartDate.ToString("d.M.yyyy") + "  And  " + FFinishDate.ToString("d.M.yyyy");
         }
+
 
         //GetAll
         [HttpGet]
@@ -66,7 +66,7 @@ namespace ClimateDataAnalyticsApi.Controllers
 
 
         //Get One from ID
-       [HttpGet("{id}")]
+        [HttpGet("{id}")]
         public ActionResult<Weather> Show(string Id)
         {
             var weather = _weatherService.Get(Id);

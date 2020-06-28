@@ -21,8 +21,8 @@ namespace ClimateDataAnalyticsApi.Controllers
         [HttpGet]
         public ActionResult<List<User>> Get() => _userservice.Get();
 
-        //Get One From Email By Get opperation 
-        [HttpGet("{Email}", Name = "GetEmail")]
+        //Get One From id By Get opperation 
+        [HttpGet("{Id}", Name = "Id")]
         public ActionResult<User> Get(string Id)
         {
             var User = _userservice.Get(Id);
@@ -36,6 +36,7 @@ namespace ClimateDataAnalyticsApi.Controllers
         [HttpPost]
         public ActionResult<User> Create(User User)
         {
+            User.Id=null;
             _userservice.Create(User);
 
             return CreatedAtRoute("GetUser", new { Id = User.Id.ToString() }, User);

@@ -36,8 +36,8 @@ namespace ClimateDataAnalyticsApi.Services
             dynamic data = JObject.Parse(client.DownloadString(address));
             int flag = 0;
             weather = JsonByDateDay(data, weather, day, flag);
-            if (Int32.Parse(weather.WeatherIcon) < 3) Create(weather);
-            else { weather.WeatherIcon = "error"; return weather; }
+            if (Int32.Parse(weather.MaxTemp) !=3) Create(weather);
+            else { return weather=null; }
             string IdForGets = weather.Country + "-" + weather.City + "-" + ((weather.IssueDate.DayOfYear) - 1) + "-" + (weather.ForecastDate.DayOfYear);
             try
             {
@@ -56,25 +56,25 @@ namespace ClimateDataAnalyticsApi.Services
 
             weather.Id = null;//"546c776b3e23f5f2ebdd3b03";
             try { weather.City = (data.city.cityName); }
-            catch { weather.City = "N/A"; flag++; }
+            catch { weather.City = "N/A";}
             try { weather.Country = (data.city.member.memName); }
-            catch { weather.Country = "N/A"; flag++; }
+            catch { weather.Country = "N/A";}
 
             try { weather.IssueDate = Convert.ToDateTime(data.city.forecast.issueDate); }
-            catch { weather.IssueDate = new DateTime(0001, 1, 1, 0, 0, 0); flag++; }
+            catch { weather.IssueDate = new DateTime(0001, 1, 1, 0, 0, 0); }
             try { weather.ForecastDate = Convert.ToDateTime(data.city.forecast.forecastDay[day].forecastDate); }
-            catch { weather.ForecastDate = new DateTime(0001, 1, 1, 0, 0, 0); flag++; }
+            catch { weather.ForecastDate = new DateTime(0001, 1, 1, 0, 0, 0); }
             try { weather.weather = (data.city.forecast.forecastDay[day].weather); }
-            catch { weather.weather = "N/A"; flag++; }
+            catch { weather.weather = "N/A"; flag++;}
 
             try { weather.MinTemp = (data.city.forecast.forecastDay[day].minTemp); }
-            catch { weather.MinTemp = "N/A"; flag++; }
+            catch { weather.MinTemp = "N/A"; flag++;}
 
             try { weather.MaxTemp = (data.city.forecast.forecastDay[day].maxTemp); }
-            catch { weather.MaxTemp = "N/A"; flag++; }
+            catch {  flag++; weather.MaxTemp = (flag).ToString();}
 
             try { weather.WeatherIcon = (data.city.forecast.forecastDay[day].weatherIcon); }
-            catch { weather.WeatherIcon = (flag++).ToString(); }
+            catch { weather.WeatherIcon = (++flag).ToString(); }
 
             try { weather.IdForGets = weather.Country + "-" + weather.City + "-" + weather.IssueDate.DayOfYear + "-" + weather.ForecastDate.DayOfYear; }
             catch { weather.IdForGets = "N/A"; }
@@ -114,39 +114,46 @@ namespace ClimateDataAnalyticsApi.Services
             return number;
         }
 
-        public string GetStatsDates(string Country, string City, DateTime StartDate, DateTime FinishDate)
+        public List<Weather> GetStatsDates(string Country, string City, DateTime StartDate, DateTime FinishDate)
         {
 
-            int days = (FinishDate.DayOfYear)-(StartDate.DayOfYear);
-            if(days <1) days=1;
-            
-            int Totalmax=0;
-            int Totalmin=0;
-            int Totalmean=0;
+            int days = (FinishDate.DayOfYear) - (StartDate.DayOfYear);
+            if (days < 1) days = 1;
 
-            for (int i=StartDate.DayOfYear;i < FinishDate.DayOfYear;i++){
+            int Totalmax = 0;
+            int Totalmin = 0;
+            int Totalmean = 0;
+            List<Weather> Temp_Weather_List = new List<Weather>();
 
-                
-                string search = Country + "-" + City + "-" + i + "-" + i ;
+            for (int i = StartDate.DayOfYear; i <= FinishDate.DayOfYear; i++)
+            {
 
-                Weather Weather =  Get_ByCity(search);
-                Totalmax  += Int32.Parse(Weather.MaxTemp);
-                Totalmin  += Int32.Parse(Weather.MinTemp);
-                Totalmean += (Int32.Parse(Weather.MaxTemp) + Int32.Parse(Weather.MinTemp))/2;
+
+                string search = Country + "-" + City + "-" + i + "-" + i;
+
+                Weather Temp_search = Get_ByCity(search);
+
+
+
+                Temp_Weather_List.Add(Temp_search);
+
+
+                Totalmax += Int32.Parse(Temp_search.MaxTemp);
+                Totalmin += Int32.Parse(Temp_search.MinTemp);
+                Totalmean += (Int32.Parse(Temp_search.MaxTemp) + Int32.Parse(Temp_search.MinTemp)) / 2;
 
             }
 
-            Totalmax=Totalmax/days;
-            Totalmin=Totalmin/days;
-            Totalmean= Totalmean/days;
+            Totalmax = Totalmax / days;
+            Totalmin = Totalmin / days;
+            Totalmean = Totalmean / days;
 
-            return Totalmax+";"+Totalmin+";"+Totalmean;
-
-
+            Console.WriteLine(Totalmax + ";" + Totalmin + ";" + Totalmean) ;
 
 
 
-            return "sa";
+            return Temp_Weather_List;
+
         }
 
 
