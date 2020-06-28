@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using ClimateDataAnalyticsApi.Models;
+using ClimateDataAnalytics.Models;
 using MongoDB.Driver;
 
-
-namespace ClimateDataAnalyticsApi.Services
+namespace ClimateDataAnalytics.Services
 {
     public class UserService
     {

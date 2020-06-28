@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ClimateDataAnalyticsApi.Models
+namespace ClimateDataAnalytics.Models
 {
     public class Weather
     {

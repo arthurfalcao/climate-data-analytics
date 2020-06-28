@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using ClimateDataAnalyticsApi.Models;
-using ClimateDataAnalyticsApi.Services;
+using ClimateDataAnalytics.Models;
+using ClimateDataAnalytics.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ClimateDataAnalyticsApi.Controllers
+namespace ClimateDataAnalytics.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,52 +18,40 @@ namespace ClimateDataAnalyticsApi.Controllers
         }
 
         //Algoritmo
-        [HttpPost, Route("GetByday/{value}")]
-        public ActionResult<Weather> GetByday(string value)
+        [HttpPost, Route("GetByDay/{value}")]
+        public ActionResult<Weather> GetByDay(string value)
         {
-            var Weather = _weatherService.Get_ByCity(value);
+            var weatherByCity = _weatherService.Get_ByCity(value);
 
-            if (Weather == null)
-            {
+            if (weatherByCity != null) return weatherByCity;
 
-                Weather = new Weather();
-                string number = _weatherService.CityToNumber(value);
-                string[] words = value.Split('-');
-                int day = Int32.Parse(words[3]) - Int32.Parse(words[2]);
-                Weather = _weatherService.getjson(Weather, number, day);
-                if (Weather == null)
-                {
-                    return StatusCode(418);
-                }
-            }
+            var number = WeatherService.CityToNumber(value);
+            var words = value.Split('-');
+            var day = int.Parse(words[3]) - int.Parse(words[2]);
 
-            return Weather;
+            var weather = _weatherService.GetJson(new Weather(), number, day);
+
+            if (weather == null)
+                return StatusCode(418);
+
+            return weather;
         }
 
         [HttpPost, Route("GetStatsDate/{Country}/{City}/{StartDate}/{FinishDate}")]
-
         public ActionResult<List<Weather>> GetStatsDate(string Country, string City, int StartDate, int FinishDate)
         {
+            var year = DateTime.Now.Year; //Or any year you want
+            var fStartDate = new DateTime(year, 1, 1).AddDays(StartDate - 1);
+            var fFinishDate = new DateTime(year, 1, 1).AddDays(FinishDate - 1);
 
-
-            int year = DateTime.Now.Year; //Or any year you want
-            DateTime FStartDate = new DateTime(year, 1, 1).AddDays(StartDate - 1);
-            DateTime FFinishDate = new DateTime(year, 1, 1).AddDays(FinishDate - 1);
-
-
-
-
-            List<Weather> Temp_val = _weatherService.GetStatsDates(Country, City, FStartDate, FFinishDate);
-            return Temp_val ;
+            return _weatherService.GetStatsDates(Country, City, fStartDate, fFinishDate);
             //string[] words = Temp_val.Split(';');
             //return "Max Temp: " + words[0] + "\nMin Temp: " + words[1] + "\nMedia: " + words[2] + "\nBettwen  " + FStartDate.ToString("d.M.yyyy") + "  And  " + FFinishDate.ToString("d.M.yyyy");
         }
 
-
         //GetAll
         [HttpGet]
         public ActionResult<List<Weather>> Index() => _weatherService.Get();
-
 
         //Get One from ID
         [HttpGet("{id}")]

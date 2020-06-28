@@ -1,56 +1,57 @@
-using ClimateDataAnalyticsApi.Models;
-using ClimateDataAnalyticsApi.Services;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using ClimateDataAnalytics.Models;
+using ClimateDataAnalytics.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ClimateDataAnalyticsApi.Controllers
+namespace ClimateDataAnalytics.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
-        private readonly UserService  _userservice;
+        private readonly UserService _userService;
 
         public UserController(UserService UserService)
         {
-            _userservice = UserService;
+            _userService = UserService;
         }
-
 
         //Get All
         [HttpGet]
-        public ActionResult<List<User>> Get() => _userservice.Get();
+        public ActionResult<List<User>> Get() => _userService.Get();
 
         //Get One From id By Get opperation 
         [HttpGet("{Id}", Name = "Id")]
         public ActionResult<User> Get(string Id)
         {
-            var User = _userservice.Get(Id);
+            var user = _userService.Get(Id);
 
-            if (User == null)
+            if (user == null)
                 return NotFound();
 
-            return User;
+            return user;
         }
+
         //Create User By Post Opperation
         [HttpPost]
-        public ActionResult<User> Create(User User)
+        public ActionResult<User> Create(User user)
         {
-            User.Id=null;
-            _userservice.Create(User);
+            user.Id = null;
+            _userService.Create(user);
 
-            return CreatedAtRoute("GetUser", new { Id = User.Id.ToString() }, User);
+            return CreatedAtRoute("GetUser", new {Id = user.Id.ToString()}, user);
         }
+
         //Update User From ID and Obj By Put Opperation
         [HttpPut("{Id:length(24)}")]
         public IActionResult Update(string Id, User UserIn)
         {
-            var User = _userservice.Get(Id);
+            var user = _userService.Get(Id);
 
-            if (User == null)
+            if (user == null)
                 return NotFound();
 
-            _userservice.Update(Id, UserIn);
+            _userService.Update(Id, UserIn);
 
             return NoContent();
         }
@@ -59,12 +60,12 @@ namespace ClimateDataAnalyticsApi.Controllers
         [HttpDelete("{Id:length(24)}")]
         public IActionResult Delete(string Id)
         {
-            var User = _userservice.Get(Id);
+            var user = _userService.Get(Id);
 
-            if (User == null)
+            if (user == null)
                 return NotFound();
 
-            _userservice.Remove(User.Id);
+            _userService.Remove(user.Id);
 
             return NoContent();
         }
