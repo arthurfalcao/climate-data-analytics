@@ -29,6 +29,8 @@ namespace ClimateDataAnalytics
                 sp.GetRequiredService<IOptions<ClimateDataAnalyticsDatabaseSettings>>().Value
             );
 
+            services.AddCors(options => { options.AddDefaultPolicy(builder => { builder.WithOrigins("*"); }); });
+
             // adicionar antes de services.AddControllers();
             services.AddSingleton<UserService>();
             services.AddSingleton<WeatherService>();
@@ -45,6 +47,7 @@ namespace ClimateDataAnalytics
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
