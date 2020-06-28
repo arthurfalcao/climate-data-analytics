@@ -13,7 +13,7 @@ export const FooterTextWrapper = styled.div`
 `;
 
 export const FooterText = styled.p`
-  color: #fff;
+  color: var(--gray);
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.57;
@@ -37,9 +37,10 @@ export const FooterLinkItem = styled.li`
 `;
 
 export const FooterLink = styled(Link)`
-  color: #fff;
+  color: var(--gray);
 
   &:hover {
-    color: #b3b3b3;
+    color: var(--gray);
+    opacity: 0.7;
   }
 `;
