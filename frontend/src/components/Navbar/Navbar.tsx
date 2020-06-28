@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import t from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from 'reactstrap';
+import { Collapse, NavbarToggler, Nav, NavItem } from 'reactstrap';
 
 import * as S from './styled';
 
-const routes = [
+const routes: Route[] = [
   {
     title: 'Inicio',
     url: '/',
@@ -25,14 +24,24 @@ const routes = [
   },
 ];
 
-function CustomNavbar({ subRoutes }) {
+export type Route = {
+  title: string;
+  url: string;
+  exact?: boolean;
+};
+
+type Props = {
+  subRoutes?: Route[];
+};
+
+const Navbar: React.FC<Props> = ({ subRoutes }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <nav>
-      <Navbar dark expand="md" className="w-100">
+    <header>
+      <S.Navbar>
         <Link to="/" className="navbar-brand">
           INAMET
         </Link>
@@ -49,31 +58,23 @@ function CustomNavbar({ subRoutes }) {
             ))}
           </Nav>
         </Collapse>
-      </Navbar>
+      </S.Navbar>
 
       {subRoutes && (
-        <Navbar dark expand="md" className="w-100 py-0">
+        <S.MainNavbar>
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
               {subRoutes.map((route) => (
                 <NavItem key={route.url}>
-                  <S.NavLink to={route.url}>{route.title}</S.NavLink>
+                  <S.MainNavLink to={route.url}>{route.title}</S.MainNavLink>
                 </NavItem>
               ))}
             </Nav>
           </Collapse>
-        </Navbar>
+        </S.MainNavbar>
       )}
-    </nav>
+    </header>
   );
-}
-
-CustomNavbar.defaultProps = {
-  subRoutes: null,
 };
 
-CustomNavbar.propTypes = {
-  subRoutes: t.array,
-};
-
-export default CustomNavbar;
+export default Navbar;

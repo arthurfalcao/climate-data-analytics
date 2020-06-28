@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const SidebarWrapper = styled.aside`
-  border-right: 1px solid #ffffff;
+  background: var(--dark-color);
   grid-area: sidebar;
   height: 100%;
-  width: 100%;
 `;
 
 export const SibebarNavLink = styled(NavLink).attrs({
@@ -13,20 +12,16 @@ export const SibebarNavLink = styled(NavLink).attrs({
   activeClassName: 'active',
 })`
   && {
-    color: #ffffff;
-    display: flex;
+    color: var(--white);
     font-size: 9pt;
     font-weight: 600;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
+    padding: 0.75rem 1rem;
+    transition: 0.4s;
 
-    &:hover {
-      color: inherit;
-      text-decoration: none;
-    }
-
+    &:hover,
     &.active {
-      background: #b3b3b3;
+      background: var(--primary-color);
+      color: var(--white);
     }
   }
 `;

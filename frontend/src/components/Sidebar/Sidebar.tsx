@@ -22,12 +22,12 @@ const subRoutes = [
   },
 ];
 
-function Sidebar() {
+const Sidebar: React.FC = () => {
   return (
     <S.SidebarWrapper>
       <Nav navbar className="align-items-start">
         {subRoutes.map((route) => (
-          <NavItem key={route.url}>
+          <NavItem key={route.url} className="w-100">
             <S.SibebarNavLink {...route} to={route.url}>
               {route.title}
             </S.SibebarNavLink>
@@ -36,6 +36,6 @@ function Sidebar() {
       </Nav>
     </S.SidebarWrapper>
   );
-}
+};
 
 export default Sidebar;
