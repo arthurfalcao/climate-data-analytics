@@ -49,6 +49,25 @@ namespace ClimateDataAnalytics.Controllers
             //return "Max Temp: " + words[0] + "\nMin Temp: " + words[1] + "\nMedia: " + words[2] + "\nBettwen  " + FStartDate.ToString("d.M.yyyy") + "  And  " + FFinishDate.ToString("d.M.yyyy");
         }
 
+        [HttpGet, Route("country/{country}")]
+        public ActionResult<List<Weather>> GetByCountry(string country)
+        {
+            var weathers = _weatherService.Get();
+            return weathers.FindAll(w => string.Equals(w.Country, country, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        [HttpGet, Route("country/{country}/city/{city}")]
+        public ActionResult<List<Weather>> GetByCity(string country, string city)
+        {
+            var weathers = _weatherService.Get();
+            return weathers.FindAll(w =>
+            {
+                var hasCountry = string.Equals(w.Country, country, StringComparison.CurrentCultureIgnoreCase);
+                var hasCity = string.Equals(w.City, city, StringComparison.CurrentCultureIgnoreCase);
+                return hasCountry && hasCity;
+            });
+        }
+
         //GetAll
         [HttpGet]
         public ActionResult<List<Weather>> Index() => _weatherService.Get();
