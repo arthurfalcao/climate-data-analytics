@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-const Text = styled.span`
+const Text = styled.span<{
+  color?: string;
+  weight?: string;
+  fontSize?: string;
+  align?: string;
+  firstToUpperCase?: boolean;
+}>`
   color: ${({ color }) => color || '#FFFFFF'};
   display: block;
   font-size: ${({ fontSize }) => fontSize || '12px'};

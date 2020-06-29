@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-const SmallLabel = styled.h4`
+const SmallLabel = styled.h4<{
+  color?: string;
+  weight?: string;
+  fontSize?: string;
+  align?: string;
+  firstToUpperCase?: boolean;
+}>`
   color: ${({ color }) => color || '#FFFFFF'};
   display: block;
   font-weight: ${({ weight }) => weight || '600'};

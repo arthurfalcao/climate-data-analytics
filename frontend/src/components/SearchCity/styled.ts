@@ -1,9 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { Search } from '@styled-icons/boxicons-regular/Search';
 
-const SearchBar = styled.form`
+export const SearchBar = styled.form`
   position: relative;
   margin: 0 auto;
   max-width: 500px;
@@ -17,7 +14,7 @@ const SearchBar = styled.form`
   }
 `;
 
-const SearchInput = styled.input`
+export const SearchInput = styled.input`
   width: 100%;
   border: none;
   background-color: #ffffff;
@@ -41,7 +38,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchIcon = styled.span`
+export const SearchIcon = styled.span`
   display: block;
   position: absolute;
   top: 50%;
@@ -62,25 +59,3 @@ const SearchIcon = styled.span`
     font-size: 16px;
   }
 `;
-
-const SearchCity = ({ submit, value, change, showResult }) => {
-  return (
-    <>
-      <SearchBar showResult={showResult} onSubmit={submit}>
-        <SearchInput type="text" value={value} placeholder="Procurar cidade" onChange={change} />
-        <SearchIcon>
-          <Search />
-        </SearchIcon>
-      </SearchBar>
-    </>
-  );
-};
-
-SearchCity.propTypes = {
-  submit: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired,
-  showResult: PropTypes.bool.isRequired,
-};
-
-export default SearchCity;

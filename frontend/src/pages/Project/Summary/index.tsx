@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Summary() {
+const Summary: React.FC = () => {
   return <h1>Summary</h1>;
 }
 

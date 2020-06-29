@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-const BigLabel = styled.h2`
+const MediumLabel = styled.h3<{
+  color?: string;
+  weight?: string;
+  fontSize?: string;
+  align?: string;
+  firstToUpperCase?: boolean;
+}>`
   color: ${({ color }) => color || '#FFFFFF'};
   display: block;
   font-weight: ${({ weight }) => weight || '600'};
-  font-size: ${({ fontSize }) => fontSize || '30px'};
+  font-size: ${({ fontSize }) => fontSize || '20px'};
   text-align: ${({ align }) => align || 'left'};
   padding: 5px 0;
   ${({ firstToUpperCase }) =>
@@ -15,14 +21,14 @@ const BigLabel = styled.h2`
   }
   `}
   @media (min-width: 768px) {
-    font-size: ${({ fontSize }) => fontSize || '37px'};
+    font-size: ${({ fontSize }) => fontSize || '23px'};
   }
   @media (min-width: 1024px) {
-    font-size: ${({ fontSize }) => fontSize || '43px'};
+    font-size: ${({ fontSize }) => fontSize || '26px'};
   }
   @media (min-width: 1440px) {
-    font-size: ${({ fontSize }) => fontSize || '52px'};
+    font-size: ${({ fontSize }) => fontSize || '29px'};
   }
 `;
 
-export default BigLabel;
+export default MediumLabel;

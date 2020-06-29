@@ -23,17 +23,17 @@ const NotFoundWrapper = styled.div`
 const NotfoundIcon = styled.span`
   display: block;
   text-align: center;
-  color: #ffffff;
+  color: var(--white);
   font-size: 40px;
   margin-right: 10px;
 `;
 
 const NotFoundText = styled.span`
-  color: #ffffff;
+  color: var(--white);
   font-size: 17px;
 `;
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <NotFoundWrapper>
       <NotfoundIcon>

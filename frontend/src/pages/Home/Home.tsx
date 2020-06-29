@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 
 import SearchCity from 'components/SearchCity';
 import Result from 'components/Result';
@@ -7,12 +7,12 @@ import Layout from 'layouts/App';
 
 import * as S from './styled';
 
-function Home() {
+const Home: React.FC = () => {
   const [value, setValue] = useState('');
   const [weatherInfo, setWeatherInfo] = useState(null);
   const [error, setError] = useState(false);
 
-  const handleSearchCity = (e) => {
+  const handleSearchCity = (e: FormEvent) => {
     e.preventDefault();
     const APIkey = '84f0c05e16abc57b03ca8fa00b59f78e';
 
@@ -24,7 +24,7 @@ function Home() {
         if (res1.ok && res2.ok) {
           return Promise.all([res1.json(), res2.json()]);
         }
-        throw Error(res1.statusText, res2.statusText);
+        throw Error(res1.statusText);
       })
       .then(([data1, data2]) => {
         const months = [
@@ -77,17 +77,12 @@ function Home() {
   return (
     <Layout>
       <S.Content>
-        <SearchCity
-          value={value}
-          showResult={weatherInfo || error}
-          change={(e) => setValue(e.target.value)}
-          submit={handleSearchCity}
-        />
+        <SearchCity value={value} onChange={(e) => setValue(e.target.value)} onSubmit={handleSearchCity} />
         {weatherInfo && <Result weather={weatherInfo} />}
         {error && <NotFound error={error} />}
       </S.Content>
     </Layout>
   );
-}
+};
 
 export default Home;

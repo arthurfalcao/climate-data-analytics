@@ -27,7 +27,7 @@ const subRoutes = [
   },
 ];
 
-function Data() {
+const Data: React.FC = () => {
   return (
     <Layout subRoutes={subRoutes}>
       <Switch>
@@ -36,6 +36,6 @@ function Data() {
       </Switch>
     </Layout>
   );
-}
+};
 
 export default Data;

@@ -28,7 +28,7 @@ const subRoutes = [
   },
 ];
 
-function Project() {
+const Project: React.FC = () => {
   return (
     <Layout subRoutes={subRoutes}>
       <Switch>
@@ -36,7 +36,7 @@ function Project() {
         <Redirect from="*" to="/projeto/sumario" />
       </Switch>
     </Layout>
-  )
-}
+  );
+};
 
 export default Project;

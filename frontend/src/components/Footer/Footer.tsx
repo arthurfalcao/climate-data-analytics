@@ -25,7 +25,7 @@ const footerRoutes = [
   },
 ];
 
-function Footer() {
+const Footer: React.FC = () => {
   return (
     <S.FooterWrapper>
       <S.FooterLinks>

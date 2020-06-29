@@ -1,8 +1,8 @@
 import React from 'react';
-import t from 'prop-types';
 import styled from 'styled-components';
 
 import Navbar from 'components/Navbar';
+import { Route } from 'components/Navbar/Navbar';
 import Footer from 'components/Footer';
 
 const Wrapper = styled.div`
@@ -13,7 +13,11 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `;
 
-function App({ children, subRoutes }) {
+type Props = {
+  subRoutes?: Route[];
+};
+
+const App: React.FC<Props> = ({ children, subRoutes }: Props) => {
   return (
     <Wrapper>
       <Navbar subRoutes={subRoutes} />
@@ -21,10 +25,6 @@ function App({ children, subRoutes }) {
       <Footer />
     </Wrapper>
   );
-}
-
-App.propTypes = {
-  children: t.node.isRequired,
 };
 
 export default App;

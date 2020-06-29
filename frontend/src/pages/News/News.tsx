@@ -15,7 +15,7 @@ const PostContent = styled(Col)`
   justify-content: center;
 `;
 
-function News() {
+const News: React.FC = () => {
   return (
     <Layout>
       <NewsWrapper>
@@ -39,6 +39,6 @@ function News() {
       </NewsWrapper>
     </Layout>
   );
-}
+};
 
 export default News;
