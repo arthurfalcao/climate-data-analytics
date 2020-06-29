@@ -10,13 +10,19 @@ export const Navbar = styled(BNavBar).attrs({
 `;
 
 export const NavLink = styled(CustomNavLink).attrs({
-  className: 'nav-link',
   activeClassName: 'selected',
 })`
   color: var(--gray);
   cursor: pointer;
+  display: block;
+  font-size: 11pt;
   font-weight: 600;
   transition: 0.4s;
+  padding: 0.25rem 1rem;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &:hover,
   &.selected {

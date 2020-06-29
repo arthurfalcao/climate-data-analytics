@@ -125,8 +125,8 @@ const Climate: React.FC = () => {
       <S.GraphWrapper>
         <S.GraphHeader>
           <div>
-            <h6 className="text-uppercase text-light ls-1 mb-1">Temperatura média</h6>
-            <h2 className="text-white mb-0">Temperatura média</h2>
+            <S.GraphDescription>Temperatura média</S.GraphDescription>
+            <S.GraphTitle>Temperatura média</S.GraphTitle>
           </div>
         </S.GraphHeader>
         <S.GraphContent>
