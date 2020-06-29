@@ -41,6 +41,6 @@ const Footer: React.FC = () => {
       </S.FooterTextWrapper>
     </S.FooterWrapper>
   );
-}
+};
 
 export default Footer;

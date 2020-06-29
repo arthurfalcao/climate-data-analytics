@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ResultFadeIn from '../ResultFadeIn';
+import ResultFadeIn from 'components/ui/ResultFadeIn';
 
 export const Results = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import React from 'react';
-import SmallLabel from '../SmallLabel';
-import Text from '../Text';
+import SmallLabel from 'components/ui/SmallLabel';
+import Text from 'components/ui/Text';
 
 import * as S from './styled';
 

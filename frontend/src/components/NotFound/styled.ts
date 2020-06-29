@@ -1,9 +1,7 @@
-import React from 'react';
-import { CommentX } from '@styled-icons/boxicons-regular/CommentX';
 import styled from 'styled-components';
-import ResultFadeIn from './ResultFadeIn';
+import ResultFadeIn from 'components/ui/ResultFadeIn';
 
-const NotFoundWrapper = styled.div`
+export const NotFoundWrapper = styled.div`
   max-width: 600px;
   display: flex;
   justify-content: center;
@@ -20,7 +18,7 @@ const NotFoundWrapper = styled.div`
   animation: ${ResultFadeIn} 0.5s 1.4s forwards;
 `;
 
-const NotfoundIcon = styled.span`
+export const NotfoundIcon = styled.span`
   display: block;
   text-align: center;
   color: var(--white);
@@ -28,20 +26,7 @@ const NotfoundIcon = styled.span`
   margin-right: 10px;
 `;
 
-const NotFoundText = styled.span`
+export const NotFoundText = styled.span`
   color: var(--white);
   font-size: 17px;
 `;
-
-const NotFound: React.FC = () => {
-  return (
-    <NotFoundWrapper>
-      <NotfoundIcon>
-        <CommentX style={{ width: '100%' }} />
-      </NotfoundIcon>
-      <NotFoundText>Sorry, the specified city was not found..</NotFoundText>
-    </NotFoundWrapper>
-  );
-};
-
-export default NotFound;

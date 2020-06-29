@@ -6,11 +6,12 @@ import { CloudRain } from '@styled-icons/boxicons-regular/CloudRain';
 import { CloudDrizzle } from '@styled-icons/boxicons-regular/CloudDrizzle';
 import { CloudSnow } from '@styled-icons/boxicons-regular/CloudSnow';
 import { Sun } from '@styled-icons/boxicons-regular/Sun';
-import ForecastHour from '../ForecastHour';
-import BigLabel from '../BigLabel';
-import MediumLabel from '../MediumLabel';
-import SmallLabel from '../SmallLabel';
-import Text from '../Text';
+
+import ForecastHour from 'components/ForecastHour';
+import BigLabel from 'components/ui/BigLabel';
+import MediumLabel from 'components/ui/MediumLabel';
+import SmallLabel from 'components/ui/SmallLabel';
+import Text from 'components/ui/Text';
 
 import * as S from './styled';
 
