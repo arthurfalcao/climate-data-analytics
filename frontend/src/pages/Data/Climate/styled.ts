@@ -7,7 +7,7 @@ export const Wrapper = styled.main`
     'sidebar graph2 map';
   grid-template-columns: 1fr 2fr 2fr;
   grid-template-rows: 50% 50%;
-  grid-gap: 1rem;
+  grid-column-gap: 1rem;
 
   @media (min-width: 992px) {
     grid-template-columns: 1fr 3fr 3fr;
@@ -33,4 +33,18 @@ export const GraphHeader = styled.div`
 export const GraphContent = styled.div`
   flex: 1 1 auto;
   padding: 0 1rem 1rem;
+`;
+
+export const GraphDescription = styled.h6`
+  color: #ced4da;
+  font-size: 0.625rem;
+  letter-spacing: 0.0625rem;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+`;
+
+export const GraphTitle = styled.h2`
+  color: var(--white);
+  font-size: 1.25rem;
+  margin-bottom: 0;
 `;

@@ -6,10 +6,10 @@ import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
 
 const Wrapper = styled.div`
+  background: var(--white);
   display: grid;
   grid-template-areas: 'header' 'main' 'footer';
   grid-template-rows: auto 1fr auto;
-
   min-height: 100vh;
 `;
 

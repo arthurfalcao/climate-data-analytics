@@ -42,5 +42,6 @@ export const FooterLink = styled(Link)`
   &:hover {
     color: var(--gray);
     opacity: 0.7;
+    text-decoration: none;
   }
 `;
