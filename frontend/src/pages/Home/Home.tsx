@@ -68,8 +68,7 @@ const Home: React.FC = () => {
         setWeatherInfo(data);
         setError(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setWeatherInfo(null);
         setError(true);
       });
