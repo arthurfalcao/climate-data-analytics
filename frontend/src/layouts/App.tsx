@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
 type Props = {
   subRoutes?: Route[];
+  children: React.ReactNode;
 };
 
 const App: React.FC<Props> = ({ children, subRoutes }: Props) => {

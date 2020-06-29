@@ -9,7 +9,7 @@ const NotFound: React.FC = () => {
       <S.NotfoundIcon>
         <CommentX style={{ width: '100%' }} />
       </S.NotfoundIcon>
-      <S.NotFoundText>Sorry, the specified city was not found..</S.NotFoundText>
+      <S.NotFoundText>Sorry, the specified city was not found.</S.NotFoundText>
     </S.NotFoundWrapper>
   );
 };

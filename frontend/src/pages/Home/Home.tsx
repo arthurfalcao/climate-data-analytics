@@ -2,6 +2,7 @@ import React, { useState, FormEvent } from 'react';
 
 import SearchCity from 'components/SearchCity';
 import Result from 'components/Result';
+import { Weather } from 'components/Result/Result';
 import NotFound from 'components/NotFound';
 import Layout from 'layouts/App';
 
@@ -9,7 +10,7 @@ import * as S from './styled';
 
 const Home: React.FC = () => {
   const [value, setValue] = useState('');
-  const [weatherInfo, setWeatherInfo] = useState(null);
+  const [weatherInfo, setWeatherInfo] = useState<Weather | null>(null);
   const [error, setError] = useState(false);
 
   const handleSearchCity = (e: FormEvent) => {
@@ -79,7 +80,7 @@ const Home: React.FC = () => {
       <S.Content>
         <SearchCity value={value} onChange={(e) => setValue(e.target.value)} onSubmit={handleSearchCity} />
         {weatherInfo && <Result weather={weatherInfo} />}
-        {error && <NotFound error={error} />}
+        {error && <NotFound />}
       </S.Content>
     </Layout>
   );

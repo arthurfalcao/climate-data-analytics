@@ -15,31 +15,33 @@ import Text from 'components/ui/Text';
 
 import * as S from './styled';
 
-type Props = {
-  weather: {
-    city: string;
-    country: string;
-    date: string;
-    description: string;
-    main: string;
-    temp: number;
-    sunrise: string;
-    sunset: string;
-    humidity: number;
-    wind: number;
-    highestTemp: number;
-    lowestTemp: number;
-    forecast: Array<{
-      dt: number;
-      dt_txt: string;
-      main: {
-        temp: number;
-      };
-      weather: Array<{
-        icon: string;
-      }>;
+export type Weather = {
+  city: string;
+  country: string;
+  date: string;
+  description: string;
+  main: string;
+  temp: number;
+  sunrise: string;
+  sunset: string;
+  humidity: number;
+  wind: number;
+  highestTemp: number;
+  lowestTemp: number;
+  forecast: Array<{
+    dt: number;
+    dt_txt: string;
+    main: {
+      temp: number;
+    };
+    weather: Array<{
+      icon: string;
     }>;
-  };
+  }>;
+};
+
+type Props = {
+  weather: Weather;
 };
 
 const Result: React.FC<Props> = ({ weather }: Props) => {
